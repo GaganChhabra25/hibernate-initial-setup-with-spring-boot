@@ -23,4 +23,32 @@ public class PersonRepositoryImpl implements PersonRepository {
         session.close();
 
     }
+
+    @Override
+    public Person readsPerson(Long Id) {
+        Session session= sessionFactory.openSession();
+        Transaction transaction = session.beginTransaction();
+            Person person = session.load(Person.class, 3l);
+            System.out.println("====query executed=====");
+            System.out.println("====Transaction complete=====");
+        transaction.commit();
+        System.out.println("=======Using person object now========");
+        System.out.println(person);
+        return  person;
+    }
+
+    @Override
+    public void update(Person person, Long Id) {
+        Session session= sessionFactory.openSession();
+        Transaction transaction = session.beginTransaction();
+            Person person1 = session.load(Person.class, Id);
+            System.out.println("Person object loaded");
+            if(person1 != null) {
+                System.out.println("==Select query will fire now");
+                person1.setAge(Id);
+            }
+        System.out.println("===Transaction completed==");
+        transaction.commit();
+        System.out.println("=== Now update query will be executed");
+    }
 }

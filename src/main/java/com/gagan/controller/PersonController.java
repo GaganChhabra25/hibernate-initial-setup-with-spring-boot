@@ -4,10 +4,7 @@ import com.gagan.entities.Person;
 import com.gagan.service.PersonService;
 import com.gagan.util.BaseApi;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 public class PersonController {
@@ -20,4 +17,18 @@ public class PersonController {
             System.out.println(person);
             personService.create(person);
          }
+
+        @RequestMapping(value = "/person/{Id}", method = RequestMethod.GET)
+        public void readPersonById(@PathVariable Long Id)
+        {
+            Person person = personService.readPerson(Id);
+            System.out.println(person);
+        }
+
+        @RequestMapping(value = "/update/person/{Id}", method = RequestMethod.POST)
+        public void updatePerson(@RequestBody Person person, @PathVariable Long Id)
+        {
+            System.out.println(person);
+            personService.update(person, Id);
+        }
 }

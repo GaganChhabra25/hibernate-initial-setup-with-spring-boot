@@ -15,4 +15,14 @@ public class PersonServiceImpl implements PersonService {
     public void create(Person person) {
         personRepository.save(person);
     }
+
+    @Override
+    public Person readPerson(Long Id) {
+       return personRepository.readsPerson(Id);
+    }
+
+    @Override
+    public void update(Person person, Long Id) {
+        personRepository.update(person,Id);
+    }
 }
