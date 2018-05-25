@@ -2,11 +2,12 @@ package com.gagan.entities;
 
 import lombok.Getter;
 import lombok.Setter;
+import org.hibernate.annotations.Cascade;
+import org.hibernate.annotations.CascadeType;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity
 @Setter@Getter
@@ -21,6 +22,17 @@ public class Person {
     private Long phone;
     private String email;
 
+    @OneToOne
+    @Cascade(CascadeType.DELETE)
+    private DrivingLicense drivingLicense;
+
+    @OneToMany(mappedBy = "person")
+    @Cascade(CascadeType.DELETE)
+    private Set<Address> addressSet = new HashSet<Address>();
+
+    @ManyToMany()
+    private Set<Mobile> mobiles = new HashSet<Mobile>();
+
     @Override
     public String toString() {
         return "Person{" +
@@ -30,6 +42,7 @@ public class Person {
                 ", age=" + age +
                 ", phone=" + phone +
                 ", email='" + email + '\'' +
+                ", drivingLicense=" + drivingLicense +
                 '}';
     }
 }
